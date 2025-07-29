@@ -11,7 +11,11 @@ class Game:
         self.running = True
         self.clock = _clock
         self.objects = []
+        
     
+    def delete_bricks(self):
+       self.objects[2].clear()
+
     def spawn_bricks(self):
         brick = []
         limit_row = math.floor((SCREEN_WIDTH / BRICK_WIDTH))
@@ -28,11 +32,18 @@ class Game:
     def draw_bricks(self,bricks):
        for i in bricks:
          i.draw(self.scr)
-            
+    def display_lives(self):
+       live_surf = pygame.Surface((27,27))
+       live_surf.fill((255,0,0))
+       for i in range(self.objects[0].lives):
+          self.scr.blit(live_surf,(650 + (40*i),30))
+          
+                
     def run(self):
    
      
      self.objects.extend([Ball(True,SCREEN_WIDTH/2,SCREEN_HEIGHT/2,BALL_ANGLE, BALL_SPEED),Paddle(PADDLE_WIDTH,PADDLE_HEIGHT,10,(1/8) * SCREEN_WIDTH, (14/15) * SCREEN_HEIGHT,SCREEN_WIDTH),self.spawn_bricks()])
+    
      # 0-ball,1-paddle,2-bricks array
     
      while self.running:
@@ -49,7 +60,12 @@ class Game:
         self.draw_bricks(self.objects[2])
         self.objects[1].draw(self.scr)
         self.objects[0].draw(self.scr,self.objects)
-        
+        if self.objects[0].lives == 0:
+           self.delete_bricks()
+           self.objects[2] = self.spawn_bricks()
+           self.objects[0].lives = 3
+        self.display_lives()
+        print(self.objects[0].lives)
         pygame.display.flip()
         self.clock.tick(FPS)
 

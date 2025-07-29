@@ -18,13 +18,7 @@ class Brick:
     def draw(self,scr):
         scr.blit(self.surface,(self.x,self.y))
         j=0
-        for i in self.hitboxes:
-            if(j < 2):
-             pygame.draw.rect(scr,(255,0,0),i,2)
-            else:
-               pygame.draw.rect(scr,(0,255,0),i,2) 
-            j += 1
-   
+       
         
         
         

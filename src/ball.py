@@ -9,6 +9,7 @@ class Ball:
             self.speed = _speed
             self.hb = pygame.Rect(_x,_y, BALL_SIZE,BALL_SIZE)
             self.angle = _angle
+            self.lives = 3
             # self.surface = pygame.Surface((BALL_SIZE,BALL_SIZE))
             # self.surface.fill((255,255,255))
             self.surface = pygame.Surface((BALL_SIZE, BALL_SIZE), pygame.SRCALPHA)  # включаем прозрачность
@@ -26,8 +27,10 @@ class Ball:
            
             self.angle = BALL_MAX_ANGLE - self.change_bounce_angle(BALL_MAX_ANGLE,paddle_rect)
             print(f"current angle: {self.angle}")
-        if (self.y > SCREEN_HEIGHT):
-            self.reflect("horizontal",True)
+        if (self.y > SCREEN_HEIGHT): # тут 
+            self.reflect("horizontal",True)     
+            self.lives-=1
+
         wasCollision = False
         for brick in bricks: 
             if self.hb.colliderect(brick.hitboxes[0]) or self.hb.colliderect(brick.hitboxes[1]):

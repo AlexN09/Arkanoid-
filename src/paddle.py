@@ -21,7 +21,7 @@ class Paddle:
         self.x -= self.speed
      scr.blit(self.surface, (self.x,self.y))        
      self.hb.topleft = (self.x,self.y)
-     pygame.draw.rect(scr, (255,0,0), self.hb, 2)
+    
      
 
    
